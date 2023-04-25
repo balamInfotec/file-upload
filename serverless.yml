@@ -5,16 +5,18 @@ frameworkVersion: '3'
 provider:
   name: aws
   runtime: java11
+  profile: 'lambda-dev-recluta'
+  region: 'us-east-1'
 
 package:
   artifact: target/hello-dev.jar
 
 functions:
   hello:
-    handler: com.serverless.Handler
+    handler: com.serverless.Handler::handleRequest
     events:
       - http:
-          path: /HolaMundo
+          path: status
           method: get
 
 plugins:
