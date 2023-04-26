@@ -5,17 +5,30 @@ frameworkVersion: '3'
 provider:
   name: aws
   runtime: java11
+  profile: 'lambda-dev-balam'
+  region: 'us-east-1'
+  apiGateway:
+    binaryMediaTypes:
+      - '*/*'
+
+#custom:
+  #apigwBinary:
+    #types:           #list of mime-types
+      #- 'image/jpeg'
+      #- 'image/png'
+      #- 'text/html'
 
 package:
   artifact: target/hello-dev.jar
 
 functions:
   hello:
-    handler: com.serverless.Handler
+    handler: com.serverless.Handler::handleRequest
     events:
       - http:
           path: /HolaMundo
-          method: get
+          method: post
 
 plugins:
   - serverless-offline
+  #- serverless-apigw-binary
